@@ -15,7 +15,7 @@ body {
 
 .user-block h1 {
   font-style: italic;
-  font-size: 250%;
+  font-size: 40px;
 }
 
 .main-input-block {
@@ -56,13 +56,13 @@ body {
   width: 100%;
   margin-top: 5px;
   font-size: 90%;
-  padding: 7px 7px;
+  padding: 7px;
   border: none;
 }
 
 .add-button {
   background-color: rgb(101, 194, 101);
-  font-size: 90%;
+  font-size: 14px;
   padding: 7px 12px;
   border: none;
 }
@@ -81,7 +81,7 @@ body {
 
 .total-summ {
   width: 30%;
-  font-size: 170%;
+  font-size: 30px;
   text-align: right;
   background-color: lightskyblue;
   border: none;
@@ -102,7 +102,7 @@ body {
 .dataBox-shop {
   width: 70%;
   margin: 0;
-  font-size: 170%;
+  font-size: 24px;
   border: none;
   background-color: lightskyblue;
 }
@@ -110,7 +110,7 @@ body {
 .dataBox-spends {
   width: 20%;
   margin: 0;
-  font-size: 170%;
+  font-size: 24px;
   border: none;
   background-color: lightskyblue;
 }
@@ -121,7 +121,7 @@ body {
 
 .shopsCorrect {
   width: 70%;
-  font-size: 170%;
+  font-size: 24px;
   border: none;
   background-color: lightskyblue;
   outline: 1px solid black;
@@ -129,7 +129,7 @@ body {
 
 .spendsCorrect {
   width: 20%;
-  font-size: 170%;
+  font-size: 24px;
   border: none;
   background-color: lightskyblue;
   outline: 1px solid black;

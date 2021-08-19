@@ -5,13 +5,13 @@ let inputWhere = null;
 let inputHow = null;
 let indexEdit = null;
 let date = new Date();
-let day = date.getDay();
+let day = date.getDate();
 let month = date.getMonth() + 1;
 let year = date.getFullYear();
 
 if (day < 10) day = `0${day}`
 if (month < 10) month = `0${month}`
-
+actualDate = `${day}.${month}.${year}`;
 
 window.onload = init = async () => {
   inputWhere = document.getElementById('input-where');
@@ -23,7 +23,6 @@ window.onload = init = async () => {
     method: "GET",
   });
   const result = await response.json();
-  console.log(result);
   mySpends = result.data;
   render();
 }
@@ -37,23 +36,19 @@ const addSales = async () => {
     },
     body: JSON.stringify({
       shop: valueInputWhere,
-      spend: valueInputHow
+      spend: valueInputHow,
+      date: actualDate
     })
   });
   const result = await response.json();
   mySpends = result.data;
   
-  // mySpends.push({
-  //   shop: valueInputWhere,
-  //   spend: valueInputHow
-  // });
   inputWhere.value = '';
   inputHow.value = '';
   valueInputWhere = '';
   valueInputHow = '';
   render();
 }
-console.log(mySpends);
 
 const render = () => {
   const content = document.getElementById('sales-input-block');
@@ -67,19 +62,18 @@ const render = () => {
     container.id = `dataBox-${index}`
 
     if (indexEdit === index) {
-
       const shopsCorrect = document.createElement('input');
       shopsCorrect.type = 'text';
       shopsCorrect.className = 'shopsCorrect'
       shopsCorrect.id = 'shopsCorrect';
-      shopsCorrect.value = `${element.shop}`
+      shopsCorrect.value = `${element.shop}`;
       container.appendChild(shopsCorrect);
 
       const spendsCorrect = document.createElement('input');
       spendsCorrect.type = 'number';
-      spendsCorrect.id = 'spendsCorrect'
-      spendsCorrect.className = 'spendsCorrect'
-      spendsCorrect.value = element.spend
+      spendsCorrect.id = 'spendsCorrect';
+      spendsCorrect.className = 'spendsCorrect';
+      spendsCorrect.value = element.spend;
       container.appendChild(spendsCorrect);
 
       const saveButton = document.createElement('input');
@@ -105,7 +99,7 @@ const render = () => {
 
     } else {
       const inputShops = document.createElement('p');
-      inputShops.innerText = `${index + 1}) Магазин "${element.shop}" ${day}.${month}.${year}`;
+      inputShops.innerText = `${index + 1}) Магазин "${element.shop}" ${actualDate}`;
       inputShops.className = 'dataBox-shop';
       container.appendChild(inputShops);
 
@@ -157,7 +151,6 @@ const deleteSpend = async (index) => {
     });
   const result = await response.json();
   mySpends = result.data;
-  // mySpends.splice(index, 1);
   render();
 }
 
