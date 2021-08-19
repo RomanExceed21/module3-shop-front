@@ -1,0 +1,318 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.user-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  font-family: sans-serif;
+  background-color: lightskyblue;
+}
+
+.user-block h1 {
+  font-style: italic;
+  font-size: 40px;
+}
+
+.main-input-block {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 60%;
+}
+
+.where-spend {
+  width: 50%;
+}
+
+.where-spend p {
+  margin: 0;
+  font-size: 90%;
+}
+
+.input-where {
+  width: 100%;
+  margin-top: 5px;
+  font-size: 90%;
+  padding: 7px 7px;
+  border: none; 
+}
+
+.howmuch-spend {
+  width: 30%;
+}
+
+.howmuch-spend p {
+  margin: 0;
+  font-size: 90%;
+}
+
+.input-how {
+  width: 100%;
+  margin-top: 5px;
+  font-size: 90%;
+  padding: 7px;
+  border: none;
+}
+
+.add-button {
+  background-color: rgb(101, 194, 101);
+  font-size: 14px;
+  padding: 7px 12px;
+  border: none;
+}
+
+.add-button:active {
+  outline: 1px solid lightslategray;
+}
+
+.total-summ-box {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1%;
+}
+
+.total-summ {
+  width: 30%;
+  font-size: 30px;
+  text-align: right;
+  background-color: lightskyblue;
+  border: none;
+}
+
+.sales-input-block {
+  width: 60%;
+}
+
+.dataBox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2%;
+}
+
+.dataBox-shop {
+  width: 70%;
+  margin: 0;
+  font-size: 24px;
+  border: none;
+  background-color: lightskyblue;
+}
+
+.dataBox-spends {
+  width: 20%;
+  margin: 0;
+  font-size: 24px;
+  border: none;
+  background-color: lightskyblue;
+}
+
+.button {
+  margin-right: 1%;
+}
+
+.shopsCorrect {
+  width: 70%;
+  font-size: 24px;
+  border: none;
+  background-color: lightskyblue;
+  outline: 1px solid black;
+}
+
+.spendsCorrect {
+  width: 20%;
+  font-size: 24px;
+  border: none;
+  background-color: lightskyblue;
+  outline: 1px solid black;
+}
+
+@media screen and (max-width: 1130px) {
+  .user-block h1 {
+    font-style: italic;
+    font-size: 200%;
+    text-align: center;
+  }
+
+  .main-input-block {
+    width: 90%;
+  }
+
+  .where-spend {
+    width: 50%;
+  }
+
+  .howmuch-spend {
+    width: 25%;
+    margin-top: 5%;
+  }
+
+  .where-spend p {
+    margin: 0;
+    font-size: 120%;
+  }
+  
+  .howmuch-spend p {
+    margin: 0;
+    font-size: 120%;
+  }
+
+  .total-summ-box {
+    width: 87%;
+    margin: 10px 0;
+  }
+  
+  .total-summ {
+    width: 70%;
+    font-size: 150%;
+  }
+
+  .sales-input-block {
+    width: 90%;
+  }
+
+  .input-where {
+    font-size: 130%;
+  }
+  
+  .input-how {
+    font-size: 130%;
+  }
+
+  .add-button {
+    font-size: 130%;
+  }
+
+  .dataBox-shop {
+    width: 70%;
+    margin: 0;
+    font-size: 150%;
+  }
+  
+  .dataBox-spends {
+    width: 15%;
+    margin-left: 12px;
+    font-size: 150%;
+  }
+
+  .button {
+    margin-right: 5px;
+    width: 25px;
+  }
+
+  .shopsCorrect {
+    width: 70%;
+    margin: 0;
+    font-size: 150%;
+  }
+  
+  .spendsCorrect {
+    width: 15%;
+    margin-left: 12px;
+    font-size: 150%;
+  }
+}
+
+@media screen and (max-width: 744px) {
+  .user-block h1 {
+    font-style: italic;
+    font-size: 150%;
+    text-align: center;
+  }
+
+  .main-input-block {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 85%;
+  }
+
+  .where-spend {
+    width: 95%;
+  }
+
+  .howmuch-spend {
+    width: 60%;
+    margin-top: 5%;
+  }
+
+  .where-spend p {
+    margin: 0;
+    font-size: 70%;
+  }
+  
+  .howmuch-spend p {
+    margin: 0;
+    font-size: 70%;
+  }
+
+  .input-where {
+    font-size: 70%;
+  }
+  
+  .input-how {
+    font-size: 70%;
+  }
+
+  .add-button {
+    font-size: 70%;
+  }
+
+  .total-summ-box {
+    width: 87%;
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .total-summ {
+    width: 70%;
+    font-size: 110%;
+    text-align: right;
+    background-color: lightskyblue;
+    border: none;
+  }
+
+  .sales-input-block {
+    width: 85%;
+  }
+
+  .dataBox-shop {
+    width: 70%;
+    margin: 0;
+    font-size: 100%;
+  }
+  
+  .dataBox-spends {
+    width: 15%;
+    margin-left: 12px;
+    font-size: 100%;
+  }
+
+  .button {
+    margin-right: 5px;
+    width: 18px;
+  }
+
+  .shopsCorrect {
+    width: 70%;
+    margin: 0;
+    font-size: 100%;
+  }
+  
+  .spendsCorrect {
+    width: 15%;
+    margin-left: 12px;
+    font-size: 100%;
+  }
+}
