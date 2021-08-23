@@ -4,6 +4,9 @@ let valueInputHow = '';
 let inputWhere = null;
 let inputHow = null;
 let indexEdit = null;
+let ShopEdit = null;
+let dateEdit = null;
+let spendEdit = null;
 let date = new Date();
 let day = date.getDate();
 let month = date.getMonth() + 1;
@@ -11,7 +14,7 @@ let year = date.getFullYear();
 
 if (day < 10) day = `0${day}`
 if (month < 10) month = `0${month}`
-actualDate = `${day}.${month}.${year}`;
+actualDate = `${year}-${month}-${day}`;
 
 window.onload = init = async () => {
   inputWhere = document.getElementById('input-where');
@@ -28,6 +31,7 @@ window.onload = init = async () => {
 }
 
 const addSales = async () => {
+  if (!inputWhere.value || !inputHow.value) return alert('Please fill all fields')
   const response = await fetch("http://localhost:8000/createSpend", {
     method: "POST",
     headers: {
@@ -62,12 +66,19 @@ const render = () => {
     container.id = `dataBox-${index}`
 
     if (indexEdit === index) {
-      const shopsCorrect = document.createElement('input');
-      shopsCorrect.type = 'text';
-      shopsCorrect.className = 'shopsCorrect'
-      shopsCorrect.id = 'shopsCorrect';
-      shopsCorrect.value = `${element.shop}`;
-      container.appendChild(shopsCorrect);
+      const shopsCorrectInput = document.createElement('input');
+      shopsCorrectInput.type = 'text';
+      shopsCorrectInput.className = 'shopsCorrect';
+      shopsCorrectInput.id = 'shopsCorrect';
+      shopsCorrectInput.value = element.shop;
+      container.appendChild(shopsCorrectInput);
+
+      const dateCorrect = document.createElement('input');
+      dateCorrect.type = 'date';
+      dateCorrect.className = 'dateCorrect';
+      dateCorrect.id = 'dateCorrect';
+      dateCorrect.value = element.date;
+      container.appendChild(dateCorrect);
 
       const spendsCorrect = document.createElement('input');
       spendsCorrect.type = 'number';
@@ -94,21 +105,89 @@ const render = () => {
 
       cancelButton.onclick = () => {
         indexEdit = null;
+        if (!shopsCorrect.value || !dateCorrect.value || !spendsCorrect.value) return alert('Please fill all fields')
         render();
       }
 
     } else {
-      const inputShops = document.createElement('p');
-      inputShops.innerText = `${index + 1}) Магазин "${element.shop}" ${actualDate}`;
-      inputShops.className = 'dataBox-shop';
-      container.appendChild(inputShops);
 
-      const inputSpends = document.createElement('p');
-      inputSpends.innerText = element.spend;
-      inputSpends.className = 'dataBox-spends';
-      container.appendChild(inputSpends);
+      if (ShopEdit === index) {
+        const shopsCorrectInput = document.createElement('input');
+        shopsCorrectInput.type = 'text';
+        shopsCorrectInput.className = 'shopsCorrect';
+        shopsCorrectInput.id = 'shopsCorrect';
+        shopsCorrectInput.value = element.shop;
+        container.appendChild(shopsCorrectInput);
+        shopsCorrectInput.focus();
+        shopsCorrectInput.onblur = () => {
+          saveCorrectionsDCShop(index);
+          ShopEdit = null;
+        }    
+      } else {
+        const inputShops = document.createElement('p');
+        inputShops.innerText = `${index + 1}) Магазин "${element.shop}"`;
+        inputShops.className = 'dataBox-shop';
+        inputShops.ondblclick = () => {
+          render();
+          ShopEdit = index;
+          dateEdit = null;
+          spendEdit = null;
+          render();
+        }
+        container.appendChild(inputShops);
+      }
+
+      if (dateEdit === index) {
+        const dateCorrectInput = document.createElement('input');
+        dateCorrectInput.type = 'date';
+        dateCorrectInput.className = 'dateCorrect';
+        dateCorrectInput.id = 'dateCorrect';
+        dateCorrectInput.value = element.date;
+        container.appendChild(dateCorrectInput);
+        dateCorrectInput.focus();
+        dateCorrectInput.onblur = () => {
+          saveCorrectionsDCDate(index);
+          dateEdit = null;
+        }
+      } else {
+        const inputDate = document.createElement('p');
+        inputDate.innerText = `${element.date}`;
+        inputDate.className = 'dataBox-date';
+        inputDate.ondblclick = () => {
+          dateEdit = index;
+          ShopEdit = null;
+          spendEdit = null;
+          render();
+        }
+        container.appendChild(inputDate);
+      }
+
+      if (spendEdit === index) {
+        const spendsCorrectInput = document.createElement('input');
+        spendsCorrectInput.type = 'text';
+        spendsCorrectInput.className = 'spendsCorrect';
+        spendsCorrectInput.id = 'spendsCorrect';
+        spendsCorrectInput.value = element.spend;
+        container.appendChild(spendsCorrectInput);
+        spendsCorrectInput.focus();
+        spendsCorrectInput.onblur = () => {
+          saveCorrectionsDCSpends(index);
+          spendEdit = null;
+        }
+      } else {
+        const inputSpends = document.createElement('p');
+        inputSpends.innerText = `${element.spend} р.`;
+        inputSpends.className = 'dataBox-spends';
+        inputSpends.ondblclick = () => {
+          spendEdit = index;
+          dateEdit = null;
+          ShopEdit = null;
+          render();
+        }
+        container.appendChild(inputSpends);
+      }
     }
-
+    
     const editButton = document.createElement('input');
     editButton.type = 'image';
     editButton.className = 'button';
@@ -141,6 +220,10 @@ const addValueWhere = (event) => {
   valueInputWhere = event.target.value;
 };
 
+addValueDate = (event) => {
+  valueInputDate = event.target.value;
+};
+
 const addValueHow = (event) => {
   valueInputHow = event.target.value;
 };
@@ -164,9 +247,15 @@ const saveCorrections = async (index) => {
   shopsCorrect.addEventListener('change', addValueWhere);
   mySpends[index].shop = shopsCorrect.value;
 
+  dateCorrect = document.getElementById('dateCorrect');
+  dateCorrect.addEventListener('change', addValueDate);
+  mySpends[index].date = dateCorrect.value;
+
   spendsCorrect = document.getElementById('spendsCorrect');
   spendsCorrect.addEventListener('change', addValueHow);
   mySpends[index].spend = spendsCorrect.value;
+
+  if (!shopsCorrect.value || !dateCorrect.value || !spendsCorrect.value) return alert('Please fill all fields')
 
   const response = await fetch("http://localhost:8000/updateSpend", {
     method: "PATCH",
@@ -177,11 +266,84 @@ const saveCorrections = async (index) => {
     body: JSON.stringify({
       _id: mySpends[index]._id,
       shop: shopsCorrect.value,
-      spend: spendsCorrect.value
+      spend: spendsCorrect.value,
+      date: dateCorrect.value
     }),
   });
   const result = await response.json();
   mySpends = result.data;
   indexEdit = null;
+  render();
+}
+
+const saveCorrectionsDCShop = async (index) => {
+  shopsCorrect = document.getElementById('shopsCorrect');
+  shopsCorrect.addEventListener('change', addValueWhere);
+  mySpends[index].shop = shopsCorrect.value;
+
+  if (!shopsCorrect.value) return alert('Please fill all fields')
+
+  const response = await fetch("http://localhost:8000/updateSpend", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      _id: mySpends[index]._id,
+      shop: shopsCorrect.value
+    }),
+  });
+  const result = await response.json();
+  mySpends = result.data;
+  shopEdit = null;
+  render();
+}
+
+const saveCorrectionsDCDate = async (index) => {
+  dateCorrect = document.getElementById('dateCorrect');
+  dateCorrect.addEventListener('change', addValueDate);
+  mySpends[index].date = dateCorrect.value;
+
+  if (!dateCorrect.value) return alert('Please fill all fields')
+
+  const response = await fetch("http://localhost:8000/updateSpend", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      _id: mySpends[index]._id,
+      date: dateCorrect.value
+    }),
+  });
+  const result = await response.json();
+  mySpends = result.data;
+  dateEdit = null;
+  render();
+}
+
+const saveCorrectionsDCSpends = async (index) => {
+  spendsCorrect = document.getElementById('spendsCorrect');
+  spendsCorrect.addEventListener('change', addValueHow);
+  mySpends[index].spend = spendsCorrect.value;
+
+  if (!spendsCorrect.value) return alert('Please fill all fields')
+
+  const response = await fetch("http://localhost:8000/updateSpend", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "Access-Control-Allow-Origin": "*",
+    },
+    body: JSON.stringify({
+      _id: mySpends[index]._id,
+      spend: spendsCorrect.value
+    }),
+  });
+  const result = await response.json();
+  mySpends = result.data;
+  spendEdit = null;
   render();
 }
