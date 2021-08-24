@@ -4,13 +4,13 @@ let valueInputHow = '';
 let inputWhere = null;
 let inputHow = null;
 let indexEdit = null;
-let ShopEdit = null;
+let shopEdit = null;
 let dateEdit = null;
 let spendEdit = null;
 let date = new Date();
-let day = date.getDate();
-let month = date.getMonth() + 1;
-let year = date.getFullYear();
+const day = date.getDate();
+const month = date.getMonth() + 1;
+const year = date.getFullYear();
 
 if (day < 10) day = `0${day}`
 if (month < 10) month = `0${month}`
@@ -111,7 +111,7 @@ const render = () => {
 
     } else {
 
-      if (ShopEdit === index) {
+      if (shopEdit === index) {
         const shopsCorrectInput = document.createElement('input');
         shopsCorrectInput.type = 'text';
         shopsCorrectInput.className = 'shopsCorrect';
@@ -121,7 +121,7 @@ const render = () => {
         shopsCorrectInput.focus();
         shopsCorrectInput.onblur = () => {
           saveCorrectionsDCShop(index);
-          ShopEdit = null;
+          shopEdit = null;
         }    
       } else {
         const inputShops = document.createElement('p');
@@ -129,7 +129,7 @@ const render = () => {
         inputShops.className = 'dataBox-shop';
         inputShops.ondblclick = () => {
           render();
-          ShopEdit = index;
+          shopEdit = index;
           dateEdit = null;
           spendEdit = null;
           render();
@@ -155,7 +155,7 @@ const render = () => {
         inputDate.className = 'dataBox-date';
         inputDate.ondblclick = () => {
           dateEdit = index;
-          ShopEdit = null;
+          shopEdit = null;
           spendEdit = null;
           render();
         }
@@ -181,7 +181,7 @@ const render = () => {
         inputSpends.ondblclick = () => {
           spendEdit = index;
           dateEdit = null;
-          ShopEdit = null;
+          shopEdit = null;
           render();
         }
         container.appendChild(inputSpends);
@@ -220,7 +220,7 @@ const addValueWhere = (event) => {
   valueInputWhere = event.target.value;
 };
 
-addValueDate = (event) => {
+const addValueDate = (event) => {
   valueInputDate = event.target.value;
 };
 
